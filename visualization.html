@@ -35,8 +35,8 @@
         }
         svg {
             width: 100%;
-            max-width: 450px;
-            height: 280px;
+            max-width: 550px;
+            height: 320px;
             background-color: #2c2f3b;
             border-radius: 8px;
             padding: 10px;
@@ -74,16 +74,16 @@
     <svg></svg>
 
     <script>
-        d3.csv("all-weeks-global.csv").then(data => {
+        d3.csv("path/to/your/data.csv").then(data => {
             // Ensure the fields are correctly parsed to numbers
             data.forEach(d => {
                 d.weekly_views = +d.weekly_views;  // Convert weekly_views to a number
             });
 
             // Set up dimensions and margins
-            const margin = {top: 20, right: 20, bottom: 40, left: 100};
-            const width = 450 - margin.left - margin.right;
-            const height = 280 - margin.top - margin.bottom;
+            const margin = {top: 20, right: 20, bottom: 40, left: 130};
+            const width = 550 - margin.left - margin.right;
+            const height = 320 - margin.top - margin.bottom;
 
             const svg = d3.select("svg")
                 .append("g")
