@@ -1,3 +1,4 @@
+/* Reset some default styles */
 * {
     margin: 0;
     padding: 0;
@@ -40,26 +41,17 @@ p {
     margin-bottom: 20px;
 }
 
-.movies-header {
-    font-size: 20px;
+.links a {
+    display: block;
+    text-decoration: none;
     color: #ffffff;
-    margin-top: 30px;
+    background-color: #333344; /* Darker background for links */
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
-.movie-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #ffffff;
-    margin-top: 15px;
-}
-
-.movie-description {
-    font-size: 15px;
-    color: #a9a9a9; /* Light gray text */
-}
-
-.movie-section {
-    border-top: 1px solid #555555; /* Subtle top border for separation */
-    padding-top: 20px;
-    margin-top: 20px;
+.links a:hover {
+    background-color: #555577; /* Slightly lighter color on hover */
 }
