@@ -33,12 +33,12 @@
     <svg width="960" height="500"></svg>
 
     <script>
-        d3.csv("all-weeks-globals.csv").then(data => {
+        d3.csv("path/to/your/data.csv").then(data => {
             // Ensure the fields are correctly parsed to numbers
             data.forEach(d => {
                 d.weekly_views = +d.weekly_views;  // Convert weekly_views to a number
             });
-            
+
             // Set up dimensions and margins
             const margin = {top: 20, right: 30, bottom: 40, left: 200};
             const width = 960 - margin.left - margin.right;
@@ -54,14 +54,19 @@
             const weeks = [...new Set(data.map(d => d.week))];
             const categories = [...new Set(data.map(d => d.category))];
 
-            // Populate filters
+            // Set the default filter values to the first week and category
+            const defaultWeek = weeks[0];
+            const defaultCategory = categories[0];
+
+            // Populate filters with default values
             d3.select("#weekFilter")
                 .selectAll("option")
                 .data(weeks)
                 .enter()
                 .append("option")
                 .text(d => d)
-                .attr("value", d => d);
+                .attr("value", d => d)
+                .property("selected", d => d === defaultWeek);
 
             d3.select("#categoryFilter")
                 .selectAll("option")
@@ -69,7 +74,8 @@
                 .enter()
                 .append("option")
                 .text(d => d)
-                .attr("value", d => d);
+                .attr("value", d => d)
+                .property("selected", d => d === defaultCategory);
 
             // Scales
             const x = d3.scaleLinear().range([0, width]);
@@ -113,7 +119,7 @@
                 svg.select(".y-axis").call(yAxis);
             }
 
-            // Initial render
+            // Initial render with default values
             updateChart();
 
             // Update chart on filter change
