@@ -14,11 +14,14 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            background-color: #1e1f26; /* Dark background */
+            color: #d3d3d3; /* Light text for general text */
         }
         h1 {
             font-size: 1.5em;
             text-align: center;
             margin-top: 20px;
+            color: #d3d3d3;
         }
         .filter-container {
             display: flex;
@@ -28,17 +31,32 @@
         }
         .filter-label {
             margin: 5px 0;
+            color: #d3d3d3;
         }
         svg {
             width: 100%;
-            max-width: 500px;
-            height: 300px;
+            max-width: 400px;
+            height: 250px;
+            background-color: #2c2f3b;
+            border-radius: 8px;
+            padding: 10px;
         }
         .bar {
             fill: steelblue;
         }
         .axis-label {
             font-size: 12px;
+            color: #d3d3d3;
+        }
+        .x-axis text,
+        .y-axis text {
+            fill: #d3d3d3; /* Light text for axis labels */
+        }
+        .x-axis path,
+        .y-axis path,
+        .x-axis line,
+        .y-axis line {
+            stroke: #d3d3d3; /* Light color for axis lines */
         }
     </style>
 </head>
@@ -56,7 +74,7 @@
     <svg></svg>
 
     <script>
-        d3.csv("all-weeks-global.csv").then(data => {
+        d3.csv("path/to/your/data.csv").then(data => {
             // Ensure the fields are correctly parsed to numbers
             data.forEach(d => {
                 d.weekly_views = +d.weekly_views;  // Convert weekly_views to a number
@@ -64,8 +82,8 @@
 
             // Set up dimensions and margins
             const margin = {top: 20, right: 20, bottom: 40, left: 100};
-            const width = 500 - margin.left - margin.right;
-            const height = 300 - margin.top - margin.bottom;
+            const width = 400 - margin.left - margin.right;
+            const height = 250 - margin.top - margin.bottom;
 
             const svg = d3.select("svg")
                 .append("g")
