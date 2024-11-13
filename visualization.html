@@ -121,7 +121,9 @@
             const y = d3.scaleBand().range([0, height]).padding(0.1);
 
             // Axes
-            const xAxis = d3.axisBottom(x).tickFormat(d3.format(".2s"));
+            const xAxis = d3.axisBottom(x)
+                .ticks(5) // Show only 5 tick marks
+                .tickFormat(d3.format(".2s"));
             const yAxis = d3.axisLeft(y);
 
             svg.append("g").attr("class", "x-axis").attr("transform", `translate(0,${height})`);
