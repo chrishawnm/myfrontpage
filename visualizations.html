@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Views Bar Chart</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+        .chart {
+            font: 10px sans-serif;
+        }
+        .bar {
+            fill: steelblue;
+        }
+        .axis-label {
+            font-size: 12px;
+        }
+        .filter-label {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label class="filter-label">Select Week:</label>
+        <select id="weekFilter"></select>
+
+        <label class="filter-label">Select Category:</label>
+        <select id="categoryFilter"></select>
+    </div>
+    
+    <svg width="960" height="500"></svg>
+
+    <script>
+        // Sample Data
+        const data = [
+            {"week": "2024-11-10", "category": "Films (English)", "show_title": "Meet Me Next Christmas", "weekly_views": 18100000},
+            {"week": "2024-11-10", "category": "Films (English)", "show_title": "Time Cut", "weekly_views": 14900000},
+            {"week": "2024-11-10", "category": "Films (English)", "show_title": "Don't Move", "weekly_views": 9100000},
+            // Add more data entries here based on your actual data
+        ];
+
+        // Set up dimensions and margins
+        const margin = {top: 20, right: 30, bottom: 40, left: 200};
+        const width = 960 - margin.left - margin.right;
+        const height = 500 - margin.top - margin.bottom;
+
+        const svg = d3.select("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        // Filter options
+        const weeks = [...new Set(data.map(d => d.week))];
+        const categories = [...new Set(data.map(d => d.category))];
+
+        // Populate filters
+        d3.select("#weekFilter")
+            .selectAll("option")
+            .data(weeks)
+            .enter()
+            .append("option")
+            .text(d => d)
+            .attr("value", d => d);
+
+        d3.select("#categoryFilter")
+            .selectAll("option")
+            .data(categories)
+            .enter()
+            .append("option")
+            .text(d => d)
+            .attr("value", d => d);
+
+        // Scales
+        const x = d3.scaleLinear().range([0, width]);
+        const y = d3.scaleBand().range([0, height]).padding(0.1);
+
+        // Axes
+        const xAxis = d3.axisBottom(x).tickFormat(d3.format(".2s"));
+        const yAxis = d3.axisLeft(y);
+
+        svg.append("g").attr("class", "x-axis").attr("transform", `translate(0,${height})`);
+        svg.append("g").attr("class", "y-axis");
+
+        function updateChart() {
+            // Get selected filter values
+            const selectedWeek = d3.select("#weekFilter").property("value");
+            const selectedCategory = d3.select("#categoryFilter").property("value");
+
+            // Filter data
+            const filteredData = data.filter(d => d.week === selectedWeek && d.category === selectedCategory);
+
+            // Update scales
+            x.domain([0, d3.max(filteredData, d => d.weekly_views)]);
+            y.domain(filteredData.map(d => d.show_title));
+
+            // Render bars
+            const bars = svg.selectAll(".bar").data(filteredData, d => d.show_title);
+
+            bars.enter()
+                .append("rect")
+                .attr("class", "bar")
+                .merge(bars)
+                .attr("x", 0)
+                .attr("y", d => y(d.show_title))
+                .attr("width", d => x(d.weekly_views))
+                .attr("height", y.bandwidth());
+
+            bars.exit().remove();
+
+            // Update axes
+            svg.select(".x-axis").call(xAxis);
+            svg.select(".y-axis").call(yAxis);
+        }
+
+        // Initial render
+        updateChart();
+
+        // Update chart on filter change
+        d3.select("#weekFilter").on("change", updateChart);
+        d3.select("#categoryFilter").on("change", updateChart);
+    </script>
+</body>
+</html>
