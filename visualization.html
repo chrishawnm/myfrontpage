@@ -74,7 +74,7 @@
     <svg></svg>
 
     <script>
-        d3.csv("path/to/your/data.csv").then(data => {
+        d3.csv("all-weeks-global.csv").then(data => {
             // Ensure the fields are correctly parsed to numbers
             data.forEach(d => {
                 d.weekly_views = +d.weekly_views;  // Convert weekly_views to a number
