@@ -40,7 +40,7 @@ h1 {
 .content p {
     color: #d3d3d3; /* Light text */
     margin-bottom: 15px;
-    text-align: left; /* Align content text to the left */
+    text-align: center; /* Align content text to the left */
 }
 
 .links a {
