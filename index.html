@@ -1,56 +1,386 @@
-<style>
-  .project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .card {
-    background: #1e1e1e; /* Slightly lighter than your background */
-    border: 1px solid #333;
-    border-radius: 8px;
-    padding: 20px;
-    color: white;
-    transition: transform 0.2s;
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chrishawn Miles - Portfolio</title>
+    <style>
+        /* --- GLOBAL STYLES --- */
+        :root {
+            --bg-color: #0f1115;       /* Very dark blue/grey */
+            --card-bg: #1b1e26;        /* Slightly lighter for cards */
+            --text-main: #e0e0e0;      /* Off-white text */
+            --text-muted: #a0a0a0;     /* Grey text */
+            --accent: #00d4ff;         /* Bright Blue for links/hovers */
+            --tag-bg: #2d3342;         /* Dark blue for tags */
+            --tag-text: #64b5f6;       /* Light blue for tag text */
+        }
 
-  .card:hover {
-    transform: translateY(-5px);
-    border-color: #00d4ff; /* A nice highlight color */
-  }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
 
-  .tag {
-    background: #333;
-    color: #00d4ff;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 0.8em;
-    margin-right: 5px;
-  }
-</style>
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
 
-<div class="project-grid">
+        /* --- HEADER & PROFILE --- */
+        .profile-section {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 40px;
+        }
 
-  <div class="card">
-    <h3>Data Engineering Examples</h3>
-    <p><span class="tag">Streamlit</span><span class="tag">LLM</span></p>
-    <p>A collection of pipelines built using LLMs...</p>
-    <a href="LINK_HERE">View Project →</a>
-  </div>
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            margin-bottom: 20px;
+        }
 
-  <div class="card">
-    <h3>Job Funnel Tracker</h3>
-    <p><span class="tag">Python</span><span class="tag">Analytics</span></p>
-    <p>Tracking application metrics over time...</p>
-    <a href="LINK_HERE">View Project →</a>
-  </div>
+        h1 {
+            font-size: 2.5rem;
+            margin: 10px 0;
+            color: white;
+        }
 
-  <div class="card">
-    <h3>D3 Visualization</h3>
-    <p><span class="tag">JavaScript</span><span class="tag">D3.js</span></p>
-    <p>Custom interactive charts...</p>
-    <a href="LINK_HERE">View Project →</a>
-  </div>
+        .role-title {
+            font-size: 1.2rem;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
 
-</div>
+        .experience {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* --- SOCIAL / RESUME BUTTONS --- */
+        .social-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--accent);
+            color: var(--bg-color);
+            transform: translateY(-2px);
+        }
+
+        /* --- BIO TEXT SECTIONS --- */
+        .bio-section {
+            max-width: 800px;
+            margin: 0 auto 50px auto;
+            text-align: left;
+        }
+
+        .bio-block {
+            margin-bottom: 30px;
+        }
+
+        .bio-label {
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            display: block;
+            font-weight: bold;
+        }
+
+        /* --- FEATURED VIDEO SECTION --- */
+        .featured-project {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 50px;
+        }
+
+        .featured-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .featured-header h2 {
+            margin: 0;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        video {
+            width: 100%;
+            border-radius: 8px;
+            background: #000;
+        }
+
+        /* --- THE GRID LAYOUT (The magic part) --- */
+        .grid-section h2 {
+            border-left: 4px solid var(--accent);
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* --- CARD DESIGN --- */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid #2a2e38;
+            border-radius: 12px;
+            padding: 25px;
+            transition: transform 0.2s, border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%; /* Makes cards same height */
+            box-sizing: border-box;
+            text-decoration: none; /* Remove underline from whole card */
+            color: inherit;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            cursor: pointer;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        /* --- TAGS (The colorful badges) --- */
+        .tags {
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .card-link {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: auto; /* Pushes link to bottom */
+        }
+        
+        /* --- SPECIAL LOCK CARD --- */
+        .card.locked {
+            border: 1px dashed #555;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header class="profile-section">
+            <img src="profile.jpg" alt="Chrishawn Miles" class="profile-pic">
+            <h1>Chrishawn Miles</h1>
+            <div class="role-title">Insights Program Manager | Analytics Engineer</div>
+            <div class="experience">5+ Years of Experience</div>
+
+            <div class="social-links">
+                <a href="https://drive.google.com/file/d/1i4QInOibjeYpaCSYO65jN298Wiw5Y9u-/view?usp=sharing" target="_blank" class="btn">View Resume</a>
+                <a href="https://www.linkedin.com/in/chrishawnmiles/" target="_blank" class="btn">LinkedIn</a>
+            </div>
+        </header>
+
+        <section class="bio-section">
+            <div class="bio-block">
+                <span class="bio-label">Objective</span>
+                Seeking to advance my technical skills in SQL, Python, and data pipeline development while enhancing core products. I aim to create impactful data products that empower business teams with self-serve reports and dashboards.
+            </div>
+            
+            <div class="bio-block">
+                <span class="bio-label">Background</span>
+                In my current role at LinkedIn, I build data pipelines with Airflow and optimize SQL scripts to improve reporting efficiency. I support Enterprise Products by showcasing how customers can leverage tools like Job Ads and LinkedIn Learning.
+            </div>
+
+            <div class="bio-block">
+                <span class="bio-label">Target Roles</span>
+                Analytics Engineer, Data Engineer, Data Scientist, Sr. Data Analyst, Sr. BI Engineer
+            </div>
+        </section>
+
+        <section class="featured-project">
+            <div class="featured-header">
+                <div>
+                    <h2>Text-to-SQL Self Service Tool</h2>
+                    <div class="tags" style="margin-top:10px;">
+                        <span class="tag">Streamlit</span>
+                        <span class="tag">DBT</span>
+                        <span class="tag">Semantic Layer</span>
+                        <span class="tag">LLM</span>
+                    </div>
+                </div>
+                <a href="https://github.com/chrishawnm/analytics_self_service" target="_blank" class="btn" style="font-size:0.9rem; padding: 8px 15px;">View Code</a>
+            </div>
+            
+            <video controls>
+                <source src="assets/demo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </section>
+
+        <section class="grid-section">
+            <h2>Portfolio Projects</h2>
+            <div class="project-grid">
+
+                <a href="https://job-funnel-tracker.vercel.app/" target="_blank" class="card">
+                    <div>
+                        <h3>Job Funnel Tracker</h3>
+                        <div class="tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Analytics</span>
+                        </div>
+                        <p>A tool to track application metrics and funnel conversion rates over time.</p>
+                    </div>
+                    <span class="card-link">View Project &rarr;</span>
+                </a>
+
+                <a href="https://github.com/chrishawnm/Data-Skills-4-All" target="_blank" class="card">
+                    <div>
+                        <h3>LLM Data Engineering</h3>
+                        <div class="tags">
+                            <span class="tag">Streamlit</span>
+                            <span class="tag">LLM</span>
+                            <span class="tag">Pipeline</span>
+                        </div>
+                        <p>Examples of data engineering pipelines built using Large Language Models.</p>
+                    </div>
+                    <span class="card-link">View Code &rarr;</span>
+                </a>
+
+                <a href="https://github.com/chrishawnm/dbt-example" target="_blank" class="card">
+                    <div>
+                        <h3>DBT Project Example</h3>
+                        <div class="tags">
+                            <span class="tag">DBT</span>
+                            <span class="tag">SQL</span>
+                            <span class="tag">Modeling</span>
+                        </div>
+                        <p>A reference architecture for modern data transformation using dbt.</p>
+                    </div>
+                    <span class="card-link">View Code &rarr;</span>
+                </a>
+
+                <a href="https://chrishawnm.github.io/ab_experimentation_platfrom/" target="_blank" class="card">
+                    <div>
+                        <h3>AB Experimentation Helper</h3>
+                        <div class="tags">
+                            <span class="tag">Statistics</span>
+                            <span class="tag">Web</span>
+                        </div>
+                        <p>A platform helper idea for running and analyzing A/B tests.</p>
+                    </div>
+                    <span class="card-link">View Project &rarr;</span>
+                </a>
+
+                <a href="visualization.html" class="card">
+                    <div>
+                        <h3>D3 Visualization</h3>
+                        <div class="tags">
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">D3.js</span>
+                            <span class="tag">Frontend</span>
+                        </div>
+                        <p>Interactive data visualizations built with the D3.js library.</p>
+                    </div>
+                    <span class="card-link">View Project &rarr;</span>
+                </a>
+
+                <a href="https://drive.google.com/file/d/1TWjO53XecD1b4HwkxM4YwoX7pXrgD08I/view?usp=sharing" target="_blank" class="card">
+                    <div>
+                        <h3>Flask Application</h3>
+                        <div class="tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Flask</span>
+                            <span class="tag">Backend</span>
+                        </div>
+                        <p>A backend web application example built using the Flask framework.</p>
+                    </div>
+                    <span class="card-link">View Code &rarr;</span>
+                </a>
+
+                <a href="https://drive.google.com/drive/folders/1aLHJ0XJS-ATGJ4pkoRgsXgUOUr_a6imp?usp=sharing" target="_blank" class="card">
+                    <div>
+                        <h3>Cloud Platform Examples</h3>
+                        <div class="tags">
+                            <span class="tag">Cloud</span>
+                            <span class="tag">Infrastructure</span>
+                        </div>
+                        <p>Demonstrations of cloud infrastructure and platform setup.</p>
+                    </div>
+                    <span class="card-link">View Files &rarr;</span>
+                </a>
+
+                <a href="https://forms.gle/uDYMm2gHfMTGYWxPA" target="_blank" class="card locked">
+                    <div>
+                        <h3>🔒 Private Data Analytics Repo</h3>
+                        <div class="tags">
+                            <span class="tag">Restricted</span>
+                        </div>
+                        <p>Request access to view my private collection of Data Analytics & Visual examples.</p>
+                    </div>
+                    <span class="card-link">Request Access &rarr;</span>
+                </a>
+
+            </div>
+        </section>
+
+    </div>
+</body>
+</html>
