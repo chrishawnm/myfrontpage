@@ -1,66 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Linktree</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <header class="profile-section">
-            <img src="profile.jpg" alt="Profile Picture" class="profile-pic">
-            <h1>Chrishawn Miles</h1>
-            <p>Insights Program Manager
-                <br> (Analytics Engineer) </br> 
-             5+ Years of Experience </p>
-        </header>
+<style>
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .card {
+    background: #1e1e1e; /* Slightly lighter than your background */
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 20px;
+    color: white;
+    transition: transform 0.2s;
+  }
 
-        <main class="content">
-            <p> <br> OBJECTIVE <br>
-                Seeking to advance my technical skills in SQL, Python, and data pipeline development while enhancing core products. I aim to create impactful data products 
-                that empower business teams with self-serve reports and dashboards for data-driven decisions. </p>
+  .card:hover {
+    transform: translateY(-5px);
+    border-color: #00d4ff; /* A nice highlight color */
+  }
 
-            <p> <br> BACKGROUND <br>
-                In my current role at LinkedIn, I build data pipelines with Airflow and optimize SQL scripts to improve reporting efficiency. I support LinkedIn's Enterprise Products 
-                by showcasing how customers can leverage tools like Job Ads, LinkedIn Recruiter, and LinkedIn Learning to drive talent and hiring strategies. </p>
+  .tag {
+    background: #333;
+    color: #00d4ff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    margin-right: 5px;
+  }
+</style>
 
-            <p> <br> POTENTIAL ROLES <br>
-                Analytics Engineer, Data Engineer, Data Scientist, Senior Data Analyst, Senior Business Intelligence Engineer, Junior Software Engineer </p>
-            
-            <div class="links">
-                <p> <a href="https://drive.google.com/file/d/1i4QInOibjeYpaCSYO65jN298Wiw5Y9u-/view?usp=sharing" target="_blank">Resume</a> <p>
-                <p> <a href="https://www.linkedin.com/in/chrishawnmiles/" target="_blank">LinkedIn Profile</a> <p>
+<div class="project-grid">
 
-                <p> <a href="https://github.com/chrishawnm/analytics_self_service" target="_blank">Streamlit + DBT + Semantic Layer Text-to-SQL Self Service Tool</a> <p>
-                
-                <div class="video-section">
-                  <h2>Watch My Live Demo of the Text-to-SQl Self Service Tool</h2>
-                  <video controls>
-                    <source src="assets/demo.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
+  <div class="card">
+    <h3>Data Engineering Examples</h3>
+    <p><span class="tag">Streamlit</span><span class="tag">LLM</span></p>
+    <p>A collection of pipelines built using LLMs...</p>
+    <a href="LINK_HERE">View Project →</a>
+  </div>
 
-                 
-                <p> <a href="https://github.com/chrishawnm/Data-Skills-4-All" target="_blank">Other Streamlit LLM Data Engineering Examples</a> <p>
-                <p> <a href="https://github.com/chrishawnm/dbt-example" target="_blank">dbt Example</a> <p>
-                <p> <a href="https://chrishawnm.github.io/ab_experimentation_platfrom/" target="_blank">AB Experimentation Platform Helper Idea</a> <p>
-                    <p> <a href="https://job-funnel-tracker.vercel.app/" target="_blank">Job Funnel Tracker Example <p>
-                    
-                    
-                <p><a href="visualization.html"> D3 Visualization Example </a></p>
+  <div class="card">
+    <h3>Job Funnel Tracker</h3>
+    <p><span class="tag">Python</span><span class="tag">Analytics</span></p>
+    <p>Tracking application metrics over time...</p>
+    <a href="LINK_HERE">View Project →</a>
+  </div>
 
-                
-                
-                <p> <a href="https://drive.google.com/file/d/1TWjO53XecD1b4HwkxM4YwoX7pXrgD08I/view?usp=sharing" target="_blank">Flask Example</a> </p>
-                <p> <a href="https://drive.google.com/drive/folders/1aLHJ0XJS-ATGJ4pkoRgsXgUOUr_a6imp?usp=sharing" target="_blank">Cloud Platform Examples</a> </p>
-                    
-                <p> <u> <a href="https://forms.gle/uDYMm2gHfMTGYWxPA" target="_blank">Click Here to Request Access to Private Repo Below:</a> </u>
-                <br><a href="https://github.com/chrishawnm/Data_Analytics_Visualization" target="_blank">Data Analytics & Visual Examples</a> <br>
-                <p>
-            </div>
-        </main>
-    </div>
-</body>
-</html>
+  <div class="card">
+    <h3>D3 Visualization</h3>
+    <p><span class="tag">JavaScript</span><span class="tag">D3.js</span></p>
+    <p>Custom interactive charts...</p>
+    <a href="LINK_HERE">View Project →</a>
+  </div>
+
+</div>
